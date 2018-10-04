@@ -1,7 +1,9 @@
 import React from "React";
+import Map from "../Map/map";
+import "./app.scss"
 
 function App() {
-	return <h1> Pacman </h1>;
+	return <Map></Map>;
 }
 
 export default App;

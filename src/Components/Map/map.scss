@@ -1,0 +1,18 @@
+.map {
+    
+    .row {
+        display:flex;
+
+        .cell {
+            display: inline-block;
+            height: 25px;
+            width: 25px;
+            border: solid black 1px;
+            background-color: black;
+
+            &.blue {
+                background-color: blue;
+            }
+        }
+    }
+}
