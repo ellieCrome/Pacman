@@ -1,0 +1,23 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+    "plugins": ["react", "jsx-a11y", "import", "prettier"],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "rules": {
+        "semi": ["error", "always"],
+        "prettier/prettier": "error",
+        "max-len": ["error", { "code": 80 }],
+        "indent": ["2", "tab"],
+        "no-tabs": 0
+        
+    }
+}
