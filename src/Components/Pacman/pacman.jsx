@@ -9,10 +9,7 @@ class Pacman extends Component {
 
 		this.pos = { x: 1, y: 1 };
 
-		this.state.style = {
-			top: 40,
-			left: 40
-		};
+		this.state.style = this.setStyle(this.pos.x, this.pos.y);
 	}
 
 	componentDidMount() {
@@ -47,19 +44,19 @@ class Pacman extends Component {
 		}
 
 		if (pos !== this.pos) {
-			this.setPacmanLocation(pos);;
+			this.pos = pos;
+
+			const style = this.setStyle(pos.x, pos.y);
+
+			this.setState({ style: style });
 		}
 	}
 
-	setPacmanLocation(position) {
-		this.pos = position;
-
-		const style = {
-			top: 11 + this.pos.y * 29,
-			left: 11 + this.pos.x * 29
+	setStyle(posX, posY) {
+		return {
+			top: 11 + posY * 29,
+			left: 11 + posX * 29
 		};
-
-		this.setState({ style: style });
 	}
 
 	render() {
