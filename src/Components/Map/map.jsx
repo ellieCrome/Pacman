@@ -1,12 +1,6 @@
-import React from "React";
+import React, {Component} from "react";
+import Pacman from "../Pacman/pacman";
 import './map.scss';
-
-// const map = [
-//     [1,1,1,1],
-//     [1,0,0,1],
-//     [1,0,0,1],
-//     [1,1,1,1]
-// ]
 
 const map = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,22 +28,57 @@ const map = [
 ];
 
 
-function Map() {
-    return (
-        <div className="map">
-            {map.map(row => {
-                return (
-                <div className="row">
-                    {row.map(cell => {
-                        let classes = "cell ";
-                        classes+= cell ? "blue": "black";
-                        return <div className={classes}></div>
-                    })}
-                </div>
-                )
-            })}
-        </div>
-    )
+class Map extends Component {
+
+	constructor() {
+		super();
+
+		this.state = {map: this.convertBasicMapToObject(map)}
+		this.state.map[1][1].showPacman = true;
+	}
+
+	convertBasicMapToObject = (basicMap) => {
+		return basicMap.map((row) => {
+			return row.map((cell) => {
+				return {
+					isWall: cell ? false : true,
+					showPacman: false,
+					showCoin: false
+				}
+			});
+		});
+	}
+
+	updateMap = (prevPos, pos) => {
+		let map = JSON.parse(JSON.stringify(this.state.map));
+
+		map[prevPos.y][prevPos.x].showPacman = false;
+		map[pos.y][pos.x].showPacman = true;
+
+		this.setState({map});
+	}
+
+    render() {
+		return (
+			<table className="map">
+				<tbody>
+				{this.state.map.map(row => {
+					return (
+					<tr className="row">
+						{row.map(cell => {
+							let classes = "cell ";
+							classes+= cell.isWall ? "blue": "black";
+							return (
+								<td className={classes}/>//
+							)
+						})}
+					</tr>
+					)
+				})}
+				</tbody>
+			</table>
+		)
+	}
 	
 }
 

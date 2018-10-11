@@ -1,10 +1,11 @@
-.map {
-    
-    .row {
-        display:flex;
+table, th, td {
+    border: 1px solid black;
+    border-spacing: 0;
+}
 
+.map {
+    .row {
         .cell {
-            display: inline-block;
             height: 25px;
             width: 25px;
             border: solid black 1px;

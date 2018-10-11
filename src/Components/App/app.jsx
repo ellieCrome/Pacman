@@ -1,9 +1,15 @@
-import React from "React";
+import React from "react";
 import Map from "../Map/map";
-import "./app.scss"
+import Pacman from "../Pacman/pacman";
+import "./app.scss";
 
 function App() {
-	return <Map></Map>;
+	return (
+		<div>
+			<Map />
+			<Pacman />
+		</div>
+	);
 }
 
 export default App;

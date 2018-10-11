@@ -4,7 +4,7 @@ var path = require("path");
 var sourceDir = path.join(__dirname, "src/");
 
 module.exports = {
-  entry: sourceDir + "index.jsx",
+  entry: ['babel-polyfill', sourceDir + "index.jsx"],
   mode: "development",
   module: {
     rules: [
