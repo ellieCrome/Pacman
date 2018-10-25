@@ -24,7 +24,7 @@ class Pacman extends Component {
 	}
 
 	handleKeyPress(event) {
-		let pos = JSON.parse(JSON.stringify(this.props.pacmanPos));
+		let pos = { ...this.props.pacmanPos };
 
 		switch (event.key) {
 			case "ArrowUp":
