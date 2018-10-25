@@ -28,7 +28,6 @@ let convertBasicMapToObject = function(basicMap) {
 		return row.map(cell => {
 			return {
 				isWall: cell ? false : true,
-				showPacman: false,
 				showCoin: false
 			};
 		});

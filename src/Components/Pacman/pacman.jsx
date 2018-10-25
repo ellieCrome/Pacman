@@ -12,15 +12,12 @@ class Pacman extends Component {
 
 	static propTypes = {
 		pacmanPos: PropTypes.object,
+		map: PropTypes.array,
 		updatePos: PropTypes.func
 	};
 
 	componentDidMount() {
 		document.addEventListener("keydown", this.handleKeyPress.bind(this));
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener("keydown", this.handleKeyPress.bind(this));
 	}
 
 	handleKeyPress(event) {
@@ -46,13 +43,18 @@ class Pacman extends Component {
 			default:
 		}
 
-		if (pos !== this.props.pacmanPos) {
+		if (pos !== this.props.pacmanPos && !this.isCollidingWithWall(pos)) {
 			this.props.updatePos(pos);
 
 			const style = this.setStyle(pos.x, pos.y);
 
 			this.setState({ style: style });
 		}
+	}
+
+	isCollidingWithWall(pos) {
+		const { map } = this.props;
+		return map[pos.y][pos.x].isWall;
 	}
 
 	setStyle(posX, posY) {
@@ -68,7 +70,7 @@ class Pacman extends Component {
 }
 
 const mapStateToProps = state => {
-	return { pacmanPos: state.pacmanPos };
+	return { pacmanPos: state.pacmanPos, map: state.map };
 };
 
 const mapDispatchToProps = dispatch => {
