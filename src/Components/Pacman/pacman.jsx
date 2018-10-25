@@ -1,16 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import "./pacman.scss";
 
 class Pacman extends Component {
 	constructor() {
 		super();
-
 		this.state = { style: {} };
-
-		this.pos = { x: 1, y: 1 };
-
-		this.state.style = this.setStyle(this.pos.x, this.pos.y);
+		this.state.style = this.setStyle(1, 1);
 	}
+
+	static propTypes = {
+		pacmanPos: PropTypes.object,
+		updatePos: PropTypes.func
+	};
 
 	componentDidMount() {
 		document.addEventListener("keydown", this.handleKeyPress.bind(this));
@@ -21,7 +24,7 @@ class Pacman extends Component {
 	}
 
 	handleKeyPress(event) {
-		let pos = JSON.parse(JSON.stringify(this.pos));
+		let pos = JSON.parse(JSON.stringify(this.props.pacmanPos));
 
 		switch (event.key) {
 			case "ArrowUp":
@@ -43,8 +46,8 @@ class Pacman extends Component {
 			default:
 		}
 
-		if (pos !== this.pos) {
-			this.pos = pos;
+		if (pos !== this.props.pacmanPos) {
+			this.props.updatePos(pos);
 
 			const style = this.setStyle(pos.x, pos.y);
 
@@ -64,4 +67,18 @@ class Pacman extends Component {
 	}
 }
 
-export default Pacman;
+const mapStateToProps = state => {
+	return { pacmanPos: state.pacmanPos };
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		updatePos: position =>
+			dispatch({ type: "UPDATE_PACMAN_POS", value: position })
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Pacman);
