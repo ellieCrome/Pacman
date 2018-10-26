@@ -28,7 +28,7 @@ let convertBasicMapToObject = function(basicMap) {
 		return row.map(cell => {
 			return {
 				isWall: cell ? false : true,
-				showCoin: false
+				showCoin: true
 			};
 		});
 	});
@@ -39,6 +39,7 @@ let initialState = {
 	map: convertBasicMapToObject(map)
 };
 
-initialState.map[1][1].showPacman = true;
+initialState.map[1][1].showCoin = false;
+
 
 export default initialState;

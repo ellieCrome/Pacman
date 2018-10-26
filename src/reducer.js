@@ -3,8 +3,12 @@ import initialState from "./initialState";
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "UPDATE_PACMAN_POS":
-			var newState = { ...state, pacmanPos: action.value };
-			return newState;
+			return { ...state, pacmanPos: action.value };
+		case "REMOVE_COIN": {
+			let updatedMap = [...state.map];
+			updatedMap[action.value.y][action.value.x].showCoin = false;
+			return { ...state, map: updatedMap };
+		}
 		default:
 			return state;
 	}

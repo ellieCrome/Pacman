@@ -13,7 +13,8 @@ class Pacman extends Component {
 	static propTypes = {
 		pacmanPos: PropTypes.object,
 		map: PropTypes.array,
-		updatePos: PropTypes.func
+		updatePos: PropTypes.func,
+		removeCoin: PropTypes.func
 	};
 
 	componentDidMount() {
@@ -46,8 +47,11 @@ class Pacman extends Component {
 		if (pos !== this.props.pacmanPos && !this.isCollidingWithWall(pos)) {
 			this.props.updatePos(pos);
 
-			const style = this.setStyle(pos.x, pos.y);
+			if(this.isCollidingWithCoin(pos)) {
+				this.props.removeCoin(pos);
+			}
 
+			const style = this.setStyle(pos.x, pos.y);
 			this.setState({ style: style });
 		}
 	}
@@ -55,6 +59,11 @@ class Pacman extends Component {
 	isCollidingWithWall(pos) {
 		const { map } = this.props;
 		return map[pos.y][pos.x].isWall;
+	}
+
+	isCollidingWithCoin(pos) {
+		const { map } = this.props;
+		return map[pos.y][pos.x].showCoin;
 	}
 
 	setStyle(posX, posY) {
@@ -76,7 +85,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		updatePos: position =>
-			dispatch({ type: "UPDATE_PACMAN_POS", value: position })
+			dispatch({ type: "UPDATE_PACMAN_POS", value: position }),
+		removeCoin: position =>
+			dispatch({ type: "REMOVE_COIN", value: position })
 	};
 };
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Coin from "../Coin/coin";
 import "./map.scss";
 
 class Map extends Component {
@@ -29,7 +30,10 @@ class Map extends Component {
 										<td
 											className={classes}
 											key={"cell-" + cellIndex}
-										/>
+										>
+											{!cell.isWall &&
+												cell.showCoin && <Coin />}
+										</td>
 									);
 								})}
 							</tr>
