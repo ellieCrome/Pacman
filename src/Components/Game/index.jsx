@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import "./pacman.scss";
+import Map from "../Map";
 
-class Pacman extends Component {
-	constructor() {
-		super();
-		this.state = { style: {} };
-		this.state.style = this.setStyle(1, 1);
-	}
+import "./game.scss";
 
+class App extends Component {
 	static propTypes = {
 		pacmanPos: PropTypes.object,
 		map: PropTypes.array,
 		updatePos: PropTypes.func,
-		removeCoin: PropTypes.func
+		removeDot: PropTypes.func
 	};
 
 	componentDidMount() {
@@ -47,12 +43,9 @@ class Pacman extends Component {
 		if (pos !== this.props.pacmanPos && !this.isCollidingWithWall(pos)) {
 			this.props.updatePos(pos);
 
-			if(this.isCollidingWithCoin(pos)) {
-				this.props.removeCoin(pos);
+			if (this.isCollidingWithDot(pos)) {
+				this.props.removeDot(pos);
 			}
-
-			const style = this.setStyle(pos.x, pos.y);
-			this.setState({ style: style });
 		}
 	}
 
@@ -61,20 +54,13 @@ class Pacman extends Component {
 		return map[pos.y][pos.x].isWall;
 	}
 
-	isCollidingWithCoin(pos) {
+	isCollidingWithDot(pos) {
 		const { map } = this.props;
-		return map[pos.y][pos.x].showCoin;
-	}
-
-	setStyle(posX, posY) {
-		return {
-			top: 11 + posY * 29,
-			left: 11 + posX * 29
-		};
+		return map[pos.y][pos.x].showDot;
 	}
 
 	render() {
-		return <div className="pacman" style={this.state.style} />;
+		return <Map />;
 	}
 }
 
@@ -86,12 +72,11 @@ const mapDispatchToProps = dispatch => {
 	return {
 		updatePos: position =>
 			dispatch({ type: "UPDATE_PACMAN_POS", value: position }),
-		removeCoin: position =>
-			dispatch({ type: "REMOVE_COIN", value: position })
+		removeDot: position => dispatch({ type: "REMOVE_DOT", value: position })
 	};
 };
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Pacman);
+)(App);

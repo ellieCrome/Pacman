@@ -1,17 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Coin from "../Coin/coin";
+import Dot from "../Dot";
+import Pacman from "../Pacman";
 import "./map.scss";
 
 class Map extends Component {
 	static propTypes = {
-		map: PropTypes.array
+		map: PropTypes.array,
+		pacmanPos: PropTypes.object
 	};
 
 	isWall(pos) {
 		const { map } = this.props;
 		return map[pos.y][pos.x].isWall;
+	}
+
+	showPacman(x, y) {
+		const { pacmanPos } = this.props;
+
+
+		return x == pacmanPos.x && y == pacmanPos.y;
 	}
 
 	render() {
@@ -31,8 +40,12 @@ class Map extends Component {
 											className={classes}
 											key={"cell-" + cellIndex}
 										>
+											{this.showPacman(
+												cellIndex,
+												rowIndex
+											) && <Pacman />}
 											{!cell.isWall &&
-												cell.showCoin && <Coin />}
+												cell.showDot && <Dot />}
 										</td>
 									);
 								})}
@@ -46,7 +59,7 @@ class Map extends Component {
 }
 
 const mapStateToProps = state => {
-	return { map: state.map };
+	return { map: state.map, pacmanPos: state.pacmanPos };
 };
 
 const mapDispatchToProps = dispatch => {
