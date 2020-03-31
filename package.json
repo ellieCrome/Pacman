@@ -28,9 +28,9 @@
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
-    "webpack": "^4.20.2",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.10.3"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -47,7 +47,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.6.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3"
