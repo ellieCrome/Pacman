@@ -21,7 +21,7 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.1.2",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.10.3"
   },
   "devDependencies": {
